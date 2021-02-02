@@ -1,0 +1,2 @@
+select id,nombre,cantidadMaximaComensales
+from mesa

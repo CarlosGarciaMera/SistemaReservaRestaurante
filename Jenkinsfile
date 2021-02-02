@@ -44,6 +44,8 @@ pipeline {
 			steps{
 				echo "------------>Unit Tests<------------"
 				sh 'gradle --b ./microservicio/build.gradle test'
+				echo "------------>JacocoTestReport Tests<------------"
+                sh 'gradle --b ./microservicio/build.gradle jacocoTestReport'
 			}
 		}
 		stage('Static Code Analysis') {

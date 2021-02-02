@@ -1,0 +1,1 @@
+insert into reseerva (id, idCliente, nombreCliente, cantidadComensales, idMesa, fecha) values (:id, :idCliente, :nombreCliente, :cantidadComensales, :idMesa, :fecha)

@@ -1,0 +1,1 @@
+insert into listanegra (idCliente, nombreCliente) values (:idCliente, :nombreCliente)

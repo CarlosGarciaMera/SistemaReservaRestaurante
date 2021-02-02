@@ -1,9 +1,22 @@
 package com.ceiba.configuracion;
 
-import com.ceiba.usuario.puerto.repositorio.RepositorioUsuario;
-import com.ceiba.usuario.servicio.ServicioActualizarUsuario;
-import com.ceiba.usuario.servicio.ServicioCrearUsuario;
-import com.ceiba.usuario.servicio.ServicioEliminarUsuario;
+import com.ceiba.listanegra.puerto.dao.DaoListaNegra;
+import com.ceiba.listanegra.puerto.repositorio.RepositorioListaNegra;
+import com.ceiba.listanegra.servicio.ServicioEliminarListaNegra;
+import com.ceiba.listanegra.servicio.ServicioRegistrarListaNegra;
+import com.ceiba.listanegra.servicio.ServicioValidarListaNegra;
+import com.ceiba.mesa.puerto.dao.DaoMesa;
+import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
+import com.ceiba.mesa.servicio.ServicioActualizarMesa;
+import com.ceiba.mesa.servicio.ServicioCrearMesa;
+import com.ceiba.mesa.servicio.ServicioEliminarMesa;
+import com.ceiba.mesa.servicio.ServicioValidacionMesa;
+import com.ceiba.reserva.puerto.dao.DaoReserva;
+import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
+import com.ceiba.reserva.servicio.ServicioCrearReserva;
+import com.ceiba.reserva.servicio.ServicioEliminarReserva;
+import com.ceiba.reserva.servicio.ServicioValidacionCancelarReserva;
+import com.ceiba.reserva.servicio.ServicioValidacionFechaCrearReserva;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,19 +24,56 @@ import org.springframework.context.annotation.Configuration;
 public class BeanServicio {
 
     @Bean
-    public ServicioCrearUsuario servicioCrearUsuario(RepositorioUsuario repositorioUsuario) {
-        return new ServicioCrearUsuario(repositorioUsuario);
+    public ServicioCrearMesa servicioCrearMesa(RepositorioMesa repositorioMesa, ServicioValidacionMesa servicioValidacionMesa) {
+        return new ServicioCrearMesa(repositorioMesa, servicioValidacionMesa);
     }
 
     @Bean
-    public ServicioEliminarUsuario servicioEliminarUsuario(RepositorioUsuario repositorioUsuario) {
-        return new ServicioEliminarUsuario(repositorioUsuario);
+    public ServicioEliminarMesa servicioEliminarMesa(RepositorioMesa repositorioMesa) {
+        return new ServicioEliminarMesa(repositorioMesa);
     }
 
     @Bean
-    public ServicioActualizarUsuario servicioActualizarUsuario(RepositorioUsuario repositorioUsuario) {
-        return new ServicioActualizarUsuario(repositorioUsuario);
+    public ServicioActualizarMesa servicioActualizarMesa(RepositorioMesa repositorioMesa, ServicioValidacionMesa servicioValidacionMesa) {
+        return new ServicioActualizarMesa(repositorioMesa, servicioValidacionMesa);
     }
-	
 
+    @Bean
+    public ServicioValidacionMesa servicioValidacionMesa(DaoMesa daoMesa) {
+        return new ServicioValidacionMesa(daoMesa);
+    }
+
+    @Bean
+    public ServicioEliminarListaNegra servicioEliminarListaNegra(RepositorioListaNegra repositorioListaNegra) {
+        return new ServicioEliminarListaNegra(repositorioListaNegra);
+    }
+    @Bean
+    public ServicioRegistrarListaNegra servicioRegistrarListaNegra(RepositorioListaNegra repositorioListaNegra) {
+        return new ServicioRegistrarListaNegra(repositorioListaNegra);
+    }
+
+    @Bean
+    public ServicioValidarListaNegra servicioValidarListaNegra(DaoListaNegra daoListaNegra) {
+        return new ServicioValidarListaNegra(daoListaNegra);
+    }
+
+    @Bean
+    public ServicioValidacionFechaCrearReserva servicioValidacionFechaCrearReserva() {
+        return new ServicioValidacionFechaCrearReserva();
+    }
+
+    @Bean
+    public ServicioValidacionCancelarReserva servicioValidacionCancelarReserva() {
+        return new ServicioValidacionCancelarReserva();
+    }
+
+    @Bean
+    public ServicioCrearReserva servicioCrearReserva(RepositorioReserva repositorioReserva, DaoReserva daoReserva, DaoMesa daoMesa, DaoListaNegra daoListaNegra, ServicioValidacionFechaCrearReserva servicioValidacionesFechaCrear) {
+        return new ServicioCrearReserva(repositorioReserva,daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
+    }
+
+    @Bean
+    public ServicioEliminarReserva servicioEliminarReserva(RepositorioReserva repositorioReserva, DaoReserva daoReserva, ServicioValidacionCancelarReserva servicioValidacionCancelarReserva) {
+        return new ServicioEliminarReserva(repositorioReserva,daoReserva,servicioValidacionCancelarReserva);
+    }
 }

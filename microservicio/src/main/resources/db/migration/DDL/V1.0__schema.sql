@@ -1,7 +1,22 @@
-create table usuario (
- id int(11) not null auto_increment,
+create table mesa (
+ id int(11) not null,
  nombre varchar(100) not null,
- clave varchar(45) not null,
- fecha_creacion datetime null,
+ cantidadMaximaComensales int(8) not null,
+ primary key (id)
+);
+
+create table listanegra (
+ idCliente int(11) not null,
+ nombreCliente varchar(100) not null,
+ primary key (idCliente)
+);
+
+create table reserva (
+ id int(11) not null,
+ idCliente int(11) not null,
+ nombreCliente varchar(100) not null,
+ cantidadComensales int(8) not null,
+ fecha datetime not null,
+ idMesa int(11) not null;
  primary key (id)
 );
