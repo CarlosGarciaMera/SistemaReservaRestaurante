@@ -5,10 +5,12 @@ import com.ceiba.core.BasePrueba;
 import com.ceiba.listanegra.puerto.dao.DaoListaNegra;
 import com.ceiba.mesa.modelo.dto.DtoMesa;
 import com.ceiba.mesa.puerto.dao.DaoMesa;
+import com.ceiba.mesa.servicio.testdatabuilder.DtoMesaTestDataBuilder;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
+import com.ceiba.reserva.servicio.testdatabuilder.DtoReservaTestDataBuilder;
 import com.ceiba.reserva.servicio.testdatabuilder.ReservaTestDataBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +77,6 @@ public class ServicioCrearReservaTest {
         Reserva reserva = new ReservaTestDataBuilder().build();
         List<DtoMesa> mesasPersistentes = new ArrayList<>();
         long idMesaPrueba = 123L;
-        DtoMesa mesaEncontrada = new DtoMesa(idMesaPrueba, "La Mejor mesa", 15);
         Mockito.when(daoMesa.listar()).thenReturn(mesasPersistentes);
         List<DtoReserva> reservasPersistentes = new ArrayList<>();
         DtoReserva reservaEncontrada = new DtoReserva(21L, 21L, "otro nombre", 11, idMesaPrueba, reserva.getFecha());
@@ -83,5 +84,51 @@ public class ServicioCrearReservaTest {
         ServicioCrearReserva servicio = new ServicioCrearReserva(repositorioReserva, daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
         // act - assert
         BasePrueba.assertThrows(() -> servicio.ejecutar(reserva), ReservaException.class,"No hay mesas disponibles para la reserva");
+    }
+
+    @Test
+    public void crearReservaMesaDisponibleNoReservada() {
+        // arrange
+        Reserva reserva = new ReservaTestDataBuilder().build();
+        long idMesaPrueba = 123L;
+
+        List<DtoMesa> mesasPersistentes = new ArrayList<>();
+        DtoMesa mesaEncontrada = new DtoMesaTestDataBuilder().conId(idMesaPrueba).build();
+        mesasPersistentes.add(mesaEncontrada);
+        Mockito.when(daoMesa.listar()).thenReturn(mesasPersistentes);
+
+        List<DtoReserva> reservasPersistentes = new ArrayList<>();
+        DtoReserva reservaEncontrada = new DtoReservaTestDataBuilder().build();
+        reservasPersistentes.add(reservaEncontrada);
+        Mockito.when(daoReserva.listar()).thenReturn(reservasPersistentes);
+
+        ServicioCrearReserva servicio = new ServicioCrearReserva(repositorioReserva, daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
+        //Act
+        servicio.ejecutar(reserva);
+        //assert
+        Mockito.verify(repositorioReserva,Mockito.times(1)).crear(reserva);
+    }
+
+    @Test
+    public void crearReservaMesaDisponibleReservadaPeroEnHorariosDiferentes() {
+        // arrange
+        Reserva reserva = new ReservaTestDataBuilder().build();
+        long idMesaPrueba = 123L;
+
+        List<DtoMesa> mesasPersistentes = new ArrayList<>();
+        DtoMesa mesaEncontrada = new DtoMesaTestDataBuilder().conId(idMesaPrueba).build();
+        mesasPersistentes.add(mesaEncontrada);
+        Mockito.when(daoMesa.listar()).thenReturn(mesasPersistentes);
+
+        List<DtoReserva> reservasPersistentes = new ArrayList<>();
+        DtoReserva reservaEncontrada = new DtoReservaTestDataBuilder().conIdMesa(idMesaPrueba).conFecha(reserva.getFecha().minusHours(4)).build();
+        reservasPersistentes.add(reservaEncontrada);
+        Mockito.when(daoReserva.listar()).thenReturn(reservasPersistentes);
+
+        ServicioCrearReserva servicio = new ServicioCrearReserva(repositorioReserva, daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
+        //Act
+        servicio.ejecutar(reserva);
+        //assert
+        Mockito.verify(repositorioReserva,Mockito.times(1)).crear(reserva);
     }
 }

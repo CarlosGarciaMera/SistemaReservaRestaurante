@@ -20,7 +20,7 @@ public class DtoReservaTestDataBuilder {
         nombreCliente = "Nombre Cliente";
 		cantidadComensales = 10;
 		fecha = LocalDateTime.parse("2020-03-31T19:25");
-		idMesa = 123L;
+		idMesa = 111L;
     }
 
 	public DtoReservaTestDataBuilder conId(Long id) {

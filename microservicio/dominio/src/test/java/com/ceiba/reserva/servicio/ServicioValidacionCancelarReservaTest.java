@@ -1,13 +1,11 @@
 package com.ceiba.reserva.servicio;
 
 
-import com.ceiba.excepcion.ReservaException;
 import com.ceiba.core.BasePrueba;
+import com.ceiba.excepcion.ReservaException;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.DtoReservaTestDataBuilder;
 import org.junit.Test;
-import org.mockito.Mockito;
-
 
 import java.time.LocalDateTime;
 
@@ -18,7 +16,7 @@ public class ServicioValidacionCancelarReservaTest {
     @Test
     public void validarFechaCancelarLanzaExceptionPorCancelarConMenosDeDosHorasTest() {
         // arrange
-        LocalDateTime fechaMenosDeDosHorasAntes = LocalDateTime.now().minusHours(1);
+        LocalDateTime fechaMenosDeDosHorasAntes = LocalDateTime.now().plusHours(1);
         DtoReserva reserva = new DtoReservaTestDataBuilder().conFecha(fechaMenosDeDosHorasAntes).build();
 
         ServicioValidacionCancelarReserva servicio = new ServicioValidacionCancelarReserva();
@@ -27,13 +25,11 @@ public class ServicioValidacionCancelarReservaTest {
     }
 
     @Test
-    public void validarFechaCancelarLanzaExceptionPorCancelarConMasDeDosHosTest() {
+    public void validarFechaCancelarPermitePorFechaConMasDeDosHorasTest() {
         // arrange
-        LocalDateTime fechaMenosDeDosHorasAntes = LocalDateTime.now().minusHours(3);
-        DtoReserva reserva = new DtoReservaTestDataBuilder().conFecha(fechaMenosDeDosHorasAntes).build();
-
-        ServicioValidacionCancelarReserva servicioMokc = Mockito.mock(ServicioValidacionCancelarReserva.class);
-        servicioMokc.validar(reserva);
-        Mockito.verify(servicioMokc,Mockito.times(1)).validar(reserva);
+        LocalDateTime fechaMasDeDosHorasAnticipacion = LocalDateTime.now().plusHours(3);
+        DtoReserva reserva = new DtoReservaTestDataBuilder().conFecha(fechaMasDeDosHorasAnticipacion).build();
+        ServicioValidacionCancelarReserva servicio = new ServicioValidacionCancelarReserva();
+        servicio.validar(reserva);
     }
 }
