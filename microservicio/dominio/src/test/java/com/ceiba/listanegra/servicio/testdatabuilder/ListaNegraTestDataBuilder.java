@@ -5,6 +5,7 @@ import com.ceiba.listanegra.modelo.entidad.ListaNegra;
 
 public class ListaNegraTestDataBuilder {
 
+    private Long id;
     private Long idCliente;
     private String nombreCliente;
 
@@ -23,7 +24,12 @@ public class ListaNegraTestDataBuilder {
         return this;
     }
 
+    public ListaNegraTestDataBuilder conId(Long idC) {
+        this.id = id;
+        return this;
+    }
+
     public ListaNegra build() {
-        return new ListaNegra(idCliente,nombreCliente);
+        return new ListaNegra(id, idCliente,nombreCliente);
     }
 }

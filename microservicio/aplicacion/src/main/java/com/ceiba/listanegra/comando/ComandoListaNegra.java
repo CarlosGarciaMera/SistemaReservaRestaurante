@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ComandoListaNegra {
 
+    private Long id;
     private Long idCliente;
     private String nombreCliente;
 }

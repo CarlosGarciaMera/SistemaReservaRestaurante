@@ -39,7 +39,7 @@ public class ServicioCrearReserva {
     public Long ejecutar(Reserva reserva) {
         validarClienteEnListaNegra(reserva);
         validarClienteDosReservasMismaHoraMismoDia(reserva);
-        servicioValidacionesFechaCrear.validar(reserva);
+        servicioValidacionesFechaCrear.validar(reserva.getFecha());
         validarAsignarMesaReserva(reserva);
         return this.repositorio.crear(reserva);
     }
@@ -78,7 +78,7 @@ public class ServicioCrearReserva {
     }
 
     private Predicate<DtoReserva> getPredicateMismaFechaMismaHora(LocalDateTime fechaAValidar) {
-        return (reserva) -> {
+        return reserva -> {
             LocalDateTime fechaReserva = reserva.getFecha();
             return fechaReserva.getYear() == fechaAValidar.getYear()
                     && fechaReserva.getDayOfYear() == fechaAValidar.getDayOfYear()

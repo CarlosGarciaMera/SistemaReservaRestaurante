@@ -27,8 +27,8 @@ public class ComandoControladorReserva {
 
     @PostMapping
     @ApiOperation("Crear Reserva")
-    public ComandoRespuesta<Long> crear(@RequestBody ComandoReserva comandoMesa) {
-        return manejadorCrear.ejecutar(comandoMesa);
+    public ComandoRespuesta<Long> crear(@RequestBody ComandoReserva comandoReserva) {
+        return manejadorCrear.ejecutar(comandoReserva);
     }
 
     @DeleteMapping(value="/{id}")

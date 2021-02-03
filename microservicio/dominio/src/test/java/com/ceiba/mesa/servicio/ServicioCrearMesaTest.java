@@ -1,7 +1,5 @@
 package com.ceiba.mesa.servicio;
 
-import static org.mockito.BDDMockito.*;
-
 import com.ceiba.dominio.excepcion.ExcepcionDuplicidad;
 import com.ceiba.mesa.modelo.entidad.Mesa;
 import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;

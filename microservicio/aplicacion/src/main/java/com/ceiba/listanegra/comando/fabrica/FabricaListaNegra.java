@@ -11,6 +11,7 @@ public class FabricaListaNegra {
 
     public ListaNegra crear(ComandoListaNegra comandoListaNegra) {
         return new ListaNegra(
+                comandoListaNegra.getId(),
                 comandoListaNegra.getIdCliente(),
                 comandoListaNegra.getNombreCliente()
         );

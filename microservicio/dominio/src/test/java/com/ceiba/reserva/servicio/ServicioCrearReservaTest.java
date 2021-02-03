@@ -63,7 +63,7 @@ public class ServicioCrearReservaTest {
     public void crearReservaNoPermiteServicioValidacionfechaLanzaException() {
         // arrange
         Reserva reserva = new ReservaTestDataBuilder().build();
-        Mockito.doThrow(new ReservaException("cualquier Excepcion de este servicio")).when(servicioValidacionesFechaCrear).validar(reserva);
+        Mockito.doThrow(new ReservaException("cualquier Excepcion de este servicio")).when(servicioValidacionesFechaCrear).validar(reserva.getFecha());
         ServicioCrearReserva servicio = new ServicioCrearReserva(repositorioReserva, daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
         // act - assert
         BasePrueba.assertThrows(() -> servicio.ejecutar(reserva), ReservaException.class,"cualquier Excepcion de este servicio");

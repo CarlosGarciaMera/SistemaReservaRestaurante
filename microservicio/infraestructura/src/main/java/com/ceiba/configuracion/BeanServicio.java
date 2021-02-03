@@ -13,10 +13,7 @@ import com.ceiba.mesa.servicio.ServicioEliminarMesa;
 import com.ceiba.mesa.servicio.ServicioValidacionMesa;
 import com.ceiba.reserva.puerto.dao.DaoReserva;
 import com.ceiba.reserva.puerto.repositorio.RepositorioReserva;
-import com.ceiba.reserva.servicio.ServicioCrearReserva;
-import com.ceiba.reserva.servicio.ServicioEliminarReserva;
-import com.ceiba.reserva.servicio.ServicioValidacionCancelarReserva;
-import com.ceiba.reserva.servicio.ServicioValidacionFechaCrearReserva;
+import com.ceiba.reserva.servicio.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -58,8 +55,27 @@ public class BeanServicio {
     }
 
     @Bean
-    public ServicioValidacionFechaCrearReserva servicioValidacionFechaCrearReserva() {
-        return new ServicioValidacionFechaCrearReserva();
+    public ServicioValidarDiaAnticipacionParaReserva servicioValidarDiaAnticipacionParaReserva() {
+        return new ServicioValidarDiaAnticipacionParaReserva();
+    }
+
+    @Bean
+    public ServicioValidarFechaParaDiaLunesOMiercoles servicioValidarFechaParaDiaLunesOMiercoles() {
+        return new ServicioValidarFechaParaDiaLunesOMiercoles();
+    }
+
+    @Bean
+    public ServicioValidarHoraParEntre8y20Horas servicioValidarHoraParEntre8y20Horas() {
+        return new ServicioValidarHoraParEntre8y20Horas();
+    }
+
+    @Bean
+    public ServicioValidacionFechaCrearReserva servicioValidacionFechaCrearReserva(
+            ServicioValidarFechaParaDiaLunesOMiercoles servicioValidarFechaParaDiaLunesOMiercoles,
+            ServicioValidarHoraParEntre8y20Horas servicioValidarHoraParEntre8y20Horas,
+            ServicioValidarDiaAnticipacionParaReserva servicioValidarDiaAnticipacionParaReserva) {
+        return new ServicioValidacionFechaCrearReserva(servicioValidarFechaParaDiaLunesOMiercoles,
+                servicioValidarHoraParEntre8y20Horas, servicioValidarDiaAnticipacionParaReserva);
     }
 
     @Bean
@@ -68,7 +84,9 @@ public class BeanServicio {
     }
 
     @Bean
-    public ServicioCrearReserva servicioCrearReserva(RepositorioReserva repositorioReserva, DaoReserva daoReserva, DaoMesa daoMesa, DaoListaNegra daoListaNegra, ServicioValidacionFechaCrearReserva servicioValidacionesFechaCrear) {
+    public ServicioCrearReserva servicioCrearReserva(RepositorioReserva repositorioReserva, DaoReserva daoReserva,
+                                                     DaoMesa daoMesa,DaoListaNegra daoListaNegra,
+                                                     ServicioValidacionFechaCrearReserva servicioValidacionesFechaCrear) {
         return new ServicioCrearReserva(repositorioReserva,daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
     }
 
