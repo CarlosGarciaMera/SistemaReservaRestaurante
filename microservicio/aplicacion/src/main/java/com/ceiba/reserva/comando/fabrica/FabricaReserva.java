@@ -4,10 +4,15 @@ import com.ceiba.reserva.comando.ComandoReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Component
 public class FabricaReserva {
+
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 
     public Reserva crear(ComandoReserva comandoReserva) {
 		return new Reserva(
@@ -15,7 +20,7 @@ public class FabricaReserva {
 				comandoReserva.getIdCliente(),
                 comandoReserva.getNombreCliente(),
                 comandoReserva.getCantidadComensales(),
-				comandoReserva.getFecha(),
+				LocalDateTime.parse(comandoReserva.getFecha(), formatter),
 				comandoReserva.getIdMesa()
         );
     }
