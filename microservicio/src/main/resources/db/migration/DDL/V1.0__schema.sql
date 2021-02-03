@@ -17,6 +17,6 @@ create table reserva (
  nombreCliente varchar(100) not null,
  cantidadComensales int(8) not null,
  fecha datetime not null,
- idMesa int(11) not null;
+ idMesa int(11) not null,
  primary key (id)
 );

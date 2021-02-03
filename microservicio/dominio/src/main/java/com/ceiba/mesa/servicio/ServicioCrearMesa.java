@@ -6,8 +6,6 @@ import com.ceiba.mesa.puerto.repositorio.RepositorioMesa;
 
 public class ServicioCrearMesa {
 
-    private static final String EL_IDENTIFICADOR_DE_MESA_YA_FUE_ASIGNADO = "El identificador demesa ya fue asignado";
-
     private final RepositorioMesa repositorioMesa;
     private final ServicioValidacionMesa servicioValidaciones;
 

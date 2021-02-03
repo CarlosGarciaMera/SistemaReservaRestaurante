@@ -22,6 +22,6 @@ public class ManejadorCrearReserva implements ManejadorComandoRespuesta<ComandoR
 
     public ComandoRespuesta<Long> ejecutar(ComandoReserva comando) {
         Reserva reserva = this.fabricaReserva.crear(comando);
-        return new ComandoRespuesta<Long>(this.servicioCrearReserva.ejecutar(reserva));
+        return new ComandoRespuesta<>(this.servicioCrearReserva.ejecutar(reserva));
     }
 }

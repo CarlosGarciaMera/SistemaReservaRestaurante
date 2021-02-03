@@ -1,7 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 
-import com.ceiba.Excepcion.ReservaException;
+import com.ceiba.excepcion.ReservaException;
 import com.ceiba.listanegra.puerto.dao.DaoListaNegra;
 import com.ceiba.mesa.modelo.dto.DtoMesa;
 import com.ceiba.mesa.puerto.dao.DaoMesa;
@@ -38,7 +38,7 @@ public class ServicioCrearReserva {
 
     public Long ejecutar(Reserva reserva) {
         validarClienteEnListaNegra(reserva);
-        ValidarClienteDosReservasMismaHoraMismoDia(reserva);
+        validarClienteDosReservasMismaHoraMismoDia(reserva);
         servicioValidacionesFechaCrear.validar(reserva);
         validarAsignarMesaReserva(reserva);
         return this.repositorio.crear(reserva);
@@ -58,7 +58,7 @@ public class ServicioCrearReserva {
         List<DtoMesa> mesasDisponiblePorContidadComensales = daoMesa.listar().stream().filter(filtrarPorCantidadComensales).collect(Collectors.toList());
         List<DtoReserva> reservas = dao.listar();
         for (DtoMesa dtoMesa: mesasDisponiblePorContidadComensales) {
-            boolean isMesaOcupada = reservas.stream().filter(reserva -> reserva.getIdMesa() == dtoMesa.getId())
+            boolean isMesaOcupada = reservas.stream().filter(reserva -> reserva.getIdMesa().equals(dtoMesa.getId()))
                     .anyMatch(getPredicateMismaFechaMismaHora(reservaInformacion.getFecha()));
             if (!isMesaOcupada) {
                 return Optional.of(dtoMesa);
@@ -67,24 +67,23 @@ public class ServicioCrearReserva {
         return Optional.empty();
     }
 
-    private void ValidarClienteDosReservasMismaHoraMismoDia(Reserva reservaAValidar) {
+    private void validarClienteDosReservasMismaHoraMismoDia(Reserva reservaAValidar) {
         List<DtoReserva> reservasMismoClienteMismoDiaMismaHora= dao.listar().stream()
-                .filter(reserva -> reserva.getIdCliente() == reservaAValidar.getIdCliente())
+                .filter(reserva -> reserva.getIdCliente().equals(reservaAValidar.getIdCliente()))
                 .filter(getPredicateMismaFechaMismaHora(reservaAValidar.getFecha()))
                 .collect(Collectors.toList());
-        if(reservasMismoClienteMismoDiaMismaHora.size() > 0) {
+        if(!reservasMismoClienteMismoDiaMismaHora.isEmpty()) {
             throw  new ReservaException(CLIENTE_CUENTA_CON_RESERVA_EL_MISMO_DIA_MISMA_HORA);
         }
     }
 
     private Predicate<DtoReserva> getPredicateMismaFechaMismaHora(LocalDateTime fechaAValidar) {
-        Predicate<DtoReserva> existeReservaEnEstaFechaYHora = reserva -> {
+        return (reserva) -> {
             LocalDateTime fechaReserva = reserva.getFecha();
             return fechaReserva.getYear() == fechaAValidar.getYear()
                     && fechaReserva.getDayOfYear() == fechaAValidar.getDayOfYear()
                     && fechaReserva.getHour() == fechaAValidar.getHour();
         };
-        return existeReservaEnEstaFechaYHora;
     }
 
     private void validarClienteEnListaNegra(Reserva reserva) {

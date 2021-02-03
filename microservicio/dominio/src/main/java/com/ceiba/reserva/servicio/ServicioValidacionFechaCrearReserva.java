@@ -1,7 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 
-import com.ceiba.Excepcion.ReservaException;
+import com.ceiba.excepcion.ReservaException;
 import com.ceiba.reserva.modelo.entidad.Reserva;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +16,7 @@ public class ServicioValidacionFechaCrearReserva {
 
     private static final String SOLO_ES_POSIBLE_RESERVAR_HORAS_PARES_ENTRE_LAS_8_Y_LAS_20_HORAS = "Solo es posible reservar en horas pares comprendidas entre las 8 y las 20 horas";
 
-    private static final String LAS_RESERVA_DEBE_SER_MINIMO_CON_UN_DIA_DE_ANTICIPACION = "La reserva debe ser con minimo un dia de anticipación";
+    private static final String LAS_RESERVA_DEBE_SER_MINIMO_CON_UN_DIA_DE_ANTICIPACION = "No se aceptan reserva para el mismo dia, esta debe ser minimo el dia anterior";
 
     public void validar(Reserva reserva) {
         validarReservaParaDiaLunesOMiercoles(reserva.getFecha());
@@ -25,12 +25,13 @@ public class ServicioValidacionFechaCrearReserva {
 
     }
 
-    private void validarDiaAnticipacionParaReserva(LocalDateTime fecha) {
-        Predicate<LocalDateTime> esElMismoDiaOSuperiorAlActual = dia -> {
-            LocalDateTime fechaActual = LocalDateTime.now();
-            return fechaActual.isAfter(dia) && dia.getDayOfYear() < fechaActual.getDayOfYear();
-        };
-        if (esElMismoDiaOSuperiorAlActual.test(fecha)) {
+    private void validarDiaAnticipacionParaReserva(LocalDateTime fechaReserva) {
+        LocalDateTime fechaActual = LocalDateTime.now();
+        Predicate<LocalDateTime> esDiaActual = fecha -> fecha.getYear() == fechaActual.getYear()
+                && fecha.getDayOfYear() == fechaActual.getDayOfYear();
+        Predicate<LocalDateTime> esDiaInferiorAlActual = fecha -> fecha.getYear() < fechaActual.getYear()
+                || (fecha.getYear() == fechaActual.getYear() && fecha.getDayOfYear() < fechaActual.getDayOfYear());
+        if (esDiaActual.or(esDiaInferiorAlActual).test(fechaReserva)) {
             throw new ReservaException(LAS_RESERVA_DEBE_SER_MINIMO_CON_UN_DIA_DE_ANTICIPACION);
         }
     }

@@ -1,4 +1,4 @@
-package com.ceiba.Excepcion;
+package com.ceiba.excepcion;
 
 public class ReservaException extends RuntimeException{
     private static final long serialVersionUID = 1L;

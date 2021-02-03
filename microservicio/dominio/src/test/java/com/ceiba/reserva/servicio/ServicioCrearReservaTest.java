@@ -1,6 +1,6 @@
 package com.ceiba.reserva.servicio;
 
-import com.ceiba.Excepcion.ReservaException;
+import com.ceiba.excepcion.ReservaException;
 import com.ceiba.core.BasePrueba;
 import com.ceiba.listanegra.puerto.dao.DaoListaNegra;
 import com.ceiba.mesa.modelo.dto.DtoMesa;
@@ -25,6 +25,7 @@ public class ServicioCrearReservaTest {
     private DaoMesa daoMesa;
     private DaoListaNegra daoListaNegra;
     private ServicioValidacionFechaCrearReserva servicioValidacionesFechaCrear;
+    private ServicioCrearReserva servicio ;
 
     @Before
     public void setUp() {
@@ -33,14 +34,14 @@ public class ServicioCrearReservaTest {
         daoMesa = Mockito.mock(DaoMesa.class);
         daoListaNegra = Mockito.mock(DaoListaNegra.class);
         servicioValidacionesFechaCrear = Mockito.mock(ServicioValidacionFechaCrearReserva.class);
+        servicio = new ServicioCrearReserva(repositorioReserva, daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
     }
 
     @Test
     public void crearReservaNoPermitePorClienteVetado() {
         // arrange
         Reserva reserva = new ReservaTestDataBuilder().build();
-        Mockito.when(daoListaNegra.isVetado(Mockito.anyLong())).thenReturn(true);
-        ServicioCrearReserva servicio = new ServicioCrearReserva(repositorioReserva, daoReserva, daoMesa, daoListaNegra, servicioValidacionesFechaCrear);
+        Mockito.when(daoListaNegra.isVetado(reserva.getIdCliente())).thenReturn(true);
         // act - assert
         BasePrueba.assertThrows(() -> servicio.ejecutar(reserva), ReservaException.class,"El Cliente se encuentra vetado, no es posible hacer reservas");
     }
@@ -59,7 +60,7 @@ public class ServicioCrearReservaTest {
     }
 
     @Test
-    public void crearReservaNoPermiteServiciovalidacionfechaLanzaException() {
+    public void crearReservaNoPermiteServicioValidacionfechaLanzaException() {
         // arrange
         Reserva reserva = new ReservaTestDataBuilder().build();
         Mockito.doThrow(new ReservaException("cualquier Excepcion de este servicio")).when(servicioValidacionesFechaCrear).validar(reserva);

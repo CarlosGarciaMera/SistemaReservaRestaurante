@@ -22,7 +22,7 @@ public class ServicioValidacionMesa {
 
     private void validarExistenciaMesaIgualNombre(Mesa mesa) {
         boolean existeMesaIgualNombre = this.daoMesa.listar().stream().anyMatch(dto -> dto.getNombre().equals(mesa.getNombre())
-                && dto.getId() != mesa.getId());
+                && !dto.getId().equals(mesa.getId()));
         if(existeMesaIgualNombre) {
             throw new ExcepcionDuplicidad(YA_EXISTE_MESA_MISMO_NOMBRE);
         }

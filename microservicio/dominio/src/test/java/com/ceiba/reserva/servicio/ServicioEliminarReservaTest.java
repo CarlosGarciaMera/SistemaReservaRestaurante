@@ -1,7 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 
-import com.ceiba.Excepcion.ReservaException;
+import com.ceiba.excepcion.ReservaException;
 import com.ceiba.core.BasePrueba;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.puerto.dao.DaoReserva;

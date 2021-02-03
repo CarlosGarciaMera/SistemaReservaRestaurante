@@ -71,8 +71,8 @@ pipeline {
     success {
       echo 'and it was successful'
       
-      junit 'microservicio/dominio/build/test-results/test/*.xml'
-      junit 'microservicio/infraestructura/build/test-results/test/*.xml'
+      junit './microservicio/dominio/build/test-results/test/*.xml'
+      junit './microservicio/infraestructura/build/test-results/test/*.xml'
     }
     failure {
 		echo 'and it was failed'
