@@ -2,6 +2,7 @@ package com.ceiba.reserva.comando.fabrica;
 
 import com.ceiba.reserva.comando.ComandoReserva;
 import com.ceiba.reserva.modelo.entidad.Reserva;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class FabricaReserva {
 
+	@Autowired
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 
