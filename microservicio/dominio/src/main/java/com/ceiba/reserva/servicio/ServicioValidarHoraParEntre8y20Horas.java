@@ -14,12 +14,12 @@ public class ServicioValidarHoraParEntre8y20Horas {
     public static final int HORA_MINIMA_RESERVA = 8;
 
     private final Predicate<LocalDateTime> esHoraParCeroMinutosCeroSegundos = hora ->
-            hora.getMinute() == 0 && hora.getSecond() == 0 && hora.getHour() % 2 > 0 ;
+            hora.getMinute() == 0 && hora.getSecond() == 0 && hora.getHour() % 2 == 0 ;
     private final Predicate<LocalDateTime> esHoraFueraDeRango8y20 = hora ->
             hora.getHour() > HORA_MAXIMA_RESERVA || hora.getHour() < HORA_MINIMA_RESERVA;
 
     public void validar(LocalDateTime fecha) {
-        if(esHoraParCeroMinutosCeroSegundos.or(esHoraFueraDeRango8y20).test(fecha)) {
+        if(esHoraParCeroMinutosCeroSegundos.negate().or(esHoraFueraDeRango8y20).test(fecha)) {
             throw new ReservaException(SOLO_ES_POSIBLE_RESERVAR_HORAS_PARES_ENTRE_LAS_8_Y_LAS_20_HORAS);
         }
     }
