@@ -33,7 +33,7 @@ public class ConsultaControladorReservaTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].idCliente", is("2")))
-                .andExpect(jsonPath("$[0].nombre", is("Cliente Reserva"));
+                .andExpect(jsonPath("$[0].nombreCliente", is("Cliente Reserva")));
     }
 
 
