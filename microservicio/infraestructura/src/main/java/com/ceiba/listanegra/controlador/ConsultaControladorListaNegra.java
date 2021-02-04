@@ -1,6 +1,7 @@
 package com.ceiba.listanegra.controlador;
 
 
+import com.ceiba.ComandoRespuesta;
 import com.ceiba.listanegra.consulta.ManejadorFindByIdListaNegra;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,7 +25,7 @@ public class ConsultaControladorListaNegra {
 
     @GetMapping(value="/{id}")
     @ApiOperation("Find by id listaNegra")
-    public boolean findById(@PathVariable Long id) {
+    public ComandoRespuesta<Boolean> findById(@PathVariable Long id) {
         return this.manejadorFindById.ejecutar(id);
     }
 

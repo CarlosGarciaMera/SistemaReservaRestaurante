@@ -12,11 +12,11 @@ public class ServicioValidarFechaParaDiaLunesOMiercoles {
 
     private static final String NO_HAY_RESERVAS_PARA_LOS_DIAS_LUNES_Y_MIERCOLES = "No es posible reservar para unn dia Lunes o Miercoles";
 
-    private final Predicate<LocalDateTime> esLunesOMiercoles= fecha ->
-            DayOfWeek.MONDAY == fecha.getDayOfWeek() || DayOfWeek.WEDNESDAY == fecha.getDayOfWeek();
+    private final Predicate<LocalDateTime> esLunes = fecha -> DayOfWeek.MONDAY == fecha.getDayOfWeek();
+    private final Predicate<LocalDateTime> esMiercoles = fecha -> DayOfWeek.WEDNESDAY == fecha.getDayOfWeek();
 
     public void validar(LocalDateTime fecha) {
-        if (esLunesOMiercoles.test(fecha)) {
+        if (esLunes.or(esMiercoles).test(fecha)) {
             throw new ReservaException(NO_HAY_RESERVAS_PARA_LOS_DIAS_LUNES_Y_MIERCOLES);
         }
     }

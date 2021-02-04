@@ -1,5 +1,6 @@
 package com.ceiba.listanegra.consulta;
 
+import com.ceiba.ComandoRespuesta;
 import com.ceiba.listanegra.puerto.dao.DaoListaNegra;
 
 import org.springframework.stereotype.Component;
@@ -14,5 +15,5 @@ public class ManejadorFindByIdListaNegra {
         this.dao = dao;
     }
 
-    public boolean ejecutar(Long id){ return this.dao.isVetado(id); }
+    public ComandoRespuesta<Boolean> ejecutar(Long id){ return new ComandoRespuesta<>(this.dao.isVetado(id)); }
 }

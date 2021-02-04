@@ -8,7 +8,7 @@ public interface RepositorioListaNegra {
      * Permite registrar un cliente en lista negra
      * @param listaNegra
      */
-    void registrar(ListaNegra listaNegra);
+    Long registrar(ListaNegra listaNegra);
 
     /**
      * Permite eliminar un cliente de la lista negra

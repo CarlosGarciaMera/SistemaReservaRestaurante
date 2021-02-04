@@ -1,6 +1,7 @@
 package com.ceiba.listanegra.controlador;
 
 
+import com.ceiba.ComandoRespuesta;
 import com.ceiba.listanegra.comando.ComandoListaNegra;
 import com.ceiba.listanegra.comando.manejador.ManejadorEliminarListaNegra;
 import com.ceiba.listanegra.comando.manejador.ManejadorRegistrarListaNegra;
@@ -25,8 +26,8 @@ public class ComandoControladorListaNegra {
 
     @PostMapping
     @ApiOperation("Crear vetado en lista negra")
-    public void registrar(@RequestBody ComandoListaNegra comando) {
-        manejadorCrear.ejecutar(comando);
+    public ComandoRespuesta<Long> registrar(@RequestBody ComandoListaNegra comando) {
+        return manejadorCrear.ejecutar(comando);
     }
 
     @DeleteMapping(value="/{id}")

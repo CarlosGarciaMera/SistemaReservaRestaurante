@@ -6,9 +6,10 @@ create table mesa (
 );
 
 create table listanegra (
- idCliente int(11) not null auto_increment,
+ id int(11) not null auto_increment,
+ idCliente int(11) not null,
  nombreCliente varchar(100) not null,
- primary key (idCliente)
+ primary key (id)
 );
 
 create table reserva (

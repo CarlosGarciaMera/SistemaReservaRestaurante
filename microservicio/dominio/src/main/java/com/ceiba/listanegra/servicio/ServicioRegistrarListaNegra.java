@@ -12,8 +12,8 @@ public class ServicioRegistrarListaNegra {
         this.repositorioListaNegra = repositorioListaNegra;
     }
 
-    public void ejecutar(ListaNegra listaNegra) {
-        this.repositorioListaNegra.registrar(listaNegra);
+    public Long ejecutar(ListaNegra listaNegra) {
+        return this.repositorioListaNegra.registrar(listaNegra);
     }
 
 }

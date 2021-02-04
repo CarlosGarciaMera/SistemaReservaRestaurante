@@ -24,8 +24,8 @@ public class RepositorioListaNegraMysql implements RepositorioListaNegra {
     }
 
     @Override
-    public void registrar(ListaNegra vetado) {
-        this.customNamedParameterJdbcTemplate.crear(vetado, sqlCrear);
+    public Long registrar(ListaNegra vetado) {
+        return this.customNamedParameterJdbcTemplate.crear(vetado, sqlCrear);
     }
 
     @Override

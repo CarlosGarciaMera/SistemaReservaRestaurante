@@ -1,1 +1,1 @@
-insert into reseerva (idCliente, nombreCliente, cantidadComensales, idMesa, fecha) values (:idCliente, :nombreCliente, :cantidadComensales, :idMesa, :fecha)
+insert into reserva (idCliente, nombreCliente, cantidadComensales, idMesa, fecha) values (:idCliente, :nombreCliente, :cantidadComensales, :idMesa, :fecha)

@@ -3,6 +3,7 @@ package com.ceiba.reserva.servicio.testdatabuilder;
 
 import com.ceiba.reserva.modelo.entidad.Reserva;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 public class ReservaTestDataBuilder {
@@ -19,7 +20,12 @@ public class ReservaTestDataBuilder {
         idCliente = 1L;
         nombreCliente = "Nombre Cliente";
 		cantidadComensales = 10;
-		fecha = LocalDateTime.parse("2020-03-31T19:25");
+        LocalDateTime fechaAxiliar = LocalDateTime.now().withHour(10).withMinute(0).withSecond(0);
+        if (DayOfWeek.MONDAY == fechaAxiliar.getDayOfWeek() || DayOfWeek.WEDNESDAY == fechaAxiliar.getDayOfWeek()) {
+            fecha = fechaAxiliar.plusDays(1);
+        } else {
+            fecha = fechaAxiliar ;
+        }
     }
 
 	public ReservaTestDataBuilder conId(Long id) {

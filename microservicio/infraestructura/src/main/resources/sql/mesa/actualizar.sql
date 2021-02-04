@@ -1,4 +1,4 @@
 update mesa
 set nombre = :nombre,
-	cantidadMaximaComensales = :cantidadMaximaComensales,
+	cantidadMaximaComensales = :cantidadMaximaComensales
 where id = :id
