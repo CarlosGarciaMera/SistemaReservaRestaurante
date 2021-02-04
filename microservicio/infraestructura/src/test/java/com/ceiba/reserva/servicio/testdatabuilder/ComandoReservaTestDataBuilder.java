@@ -21,7 +21,7 @@ public class ComandoReservaTestDataBuilder {
         idCliente = 1L;
         nombreCliente = "Nombre Cliente";
 		cantidadComensales = 1;
-		LocalDateTime fechaAxiliar = LocalDateTime.now().withHour(10).withMinute(0).withSecond(0);
+		LocalDateTime fechaAxiliar = LocalDateTime.now().withHour(10).withMinute(0).withSecond(0).plusDays(1);
 		if (DayOfWeek.MONDAY == fechaAxiliar.getDayOfWeek() || DayOfWeek.WEDNESDAY == fechaAxiliar.getDayOfWeek()) {
             fecha = fechaAxiliar.plusDays(1);
         } else {
