@@ -52,4 +52,14 @@ public class ServicioValidacionFechaCrearReservaTest {
         //act - assert
         BasePrueba.assertThrows(() -> servicio.validar(fechaPrueba), ReservaException.class,"cualquier Excepcion del servicio servicioValidarDiaAnticipacionParaReserva");
     }
+
+    @Test
+    public void validarServicioOrquestadorTest() {
+        //arrange
+        servicio.validar(fechaPrueba);
+        //act - assert
+        Mockito.verify(servicioValidarDiaAnticipacionParaReserva).validar(fechaPrueba.toLocalDate());
+        Mockito.verify(servicioValidarHoraParEntre8y20Horas).validar(fechaPrueba);
+        Mockito.verify(servicioValidarFechaParaDiaLunesOMiercoles).validar(fechaPrueba);
+    }
 }
