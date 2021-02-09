@@ -1,4 +1,4 @@
-package com.ceiba.listanegra.controlador;
+package com.ceiba.reserva.controlador;
 
 import com.ceiba.ApplicationMock;
 import org.junit.Test;
@@ -12,37 +12,28 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes= ApplicationMock.class)
-@WebMvcTest(ConsultaControladorListaNegra.class)
-public class ConsultaControladorListaNegraTest {
+@WebMvcTest(ConsultaControladorReserva.class)
+public class ConsultaControladorReservaTest {
 
     @Autowired
     private MockMvc mocMvc;
-
-    @Test
-    public void findbyId() throws Exception {
-        // arrange
-	Long id = 1L;
-        // act - assert
-        mocMvc.perform(MockMvcRequestBuilders.get("/listanegra/{id}",id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{'valor': true}"));
-    }
 
     @Test
     public void listar() throws Exception {
         // arrange
 
         // act - assert
-        mocMvc.perform(MockMvcRequestBuilders.get("/listanegra")
+        mocMvc.perform(MockMvcRequestBuilders.get("/reservas")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].nombreCliente", is("Cliente vetado Encontrado")));
+                .andExpect(jsonPath("$[0].nombreCliente", is("Cliente Reserva")));
     }
+
 
 }

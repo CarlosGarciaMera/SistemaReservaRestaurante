@@ -1,0 +1,2 @@
+select id,idCliente,nombreCliente
+from listanegra
