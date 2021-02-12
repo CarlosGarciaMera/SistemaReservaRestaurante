@@ -1,6 +1,7 @@
 package com.ceiba.reserva.servicio;
 
-import com.ceiba.excepcion.ReservaException;
+
+import com.ceiba.dominio.excepcion.ReservaException;
 import lombok.NoArgsConstructor;
 
 import java.time.DayOfWeek;

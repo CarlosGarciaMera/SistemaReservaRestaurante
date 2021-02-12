@@ -1,7 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 
-import com.ceiba.excepcion.ReservaException;
+import com.ceiba.dominio.excepcion.ReservaException;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import lombok.NoArgsConstructor;
 

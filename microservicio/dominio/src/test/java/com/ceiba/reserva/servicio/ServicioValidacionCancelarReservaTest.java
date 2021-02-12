@@ -2,7 +2,7 @@ package com.ceiba.reserva.servicio;
 
 
 import com.ceiba.core.BasePrueba;
-import com.ceiba.excepcion.ReservaException;
+import com.ceiba.dominio.excepcion.ReservaException;
 import com.ceiba.reserva.modelo.dto.DtoReserva;
 import com.ceiba.reserva.servicio.testdatabuilder.DtoReservaTestDataBuilder;
 import org.junit.Test;

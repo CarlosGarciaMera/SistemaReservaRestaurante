@@ -1,7 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 import com.ceiba.core.BasePrueba;
-import com.ceiba.excepcion.ReservaException;
+import com.ceiba.dominio.excepcion.ReservaException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

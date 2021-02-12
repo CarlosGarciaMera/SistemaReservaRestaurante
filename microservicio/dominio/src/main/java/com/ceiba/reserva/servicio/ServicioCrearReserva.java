@@ -1,7 +1,7 @@
 package com.ceiba.reserva.servicio;
 
 
-import com.ceiba.excepcion.ReservaException;
+import com.ceiba.dominio.excepcion.ReservaException;
 import com.ceiba.listanegra.puerto.dao.DaoListaNegra;
 import com.ceiba.mesa.modelo.dto.DtoMesa;
 import com.ceiba.mesa.puerto.dao.DaoMesa;
