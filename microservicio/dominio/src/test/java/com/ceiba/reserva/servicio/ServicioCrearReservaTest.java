@@ -84,6 +84,29 @@ public class ServicioCrearReservaTest {
     }
 
     @Test
+    public void crearReservaMesaDisponibleNoReservadaMIsmaCantidadComensalesMismaCantidadMaximaComensalesMesa() {
+        // arrange
+        int cantidadComensales = 8;
+        long idMesaPrueba = 123L;
+        Reserva reserva = new ReservaTestDataBuilder().conCantidadComensales(cantidadComensales).build();
+
+        List<DtoMesa> mesasPersistentes = new ArrayList<>();
+        DtoMesa mesaEncontrada = new DtoMesaTestDataBuilder().conId(idMesaPrueba).conCantidadMaximaComensales(cantidadComensales).build();
+        mesasPersistentes.add(mesaEncontrada);
+        Mockito.when(daoMesa.listar()).thenReturn(mesasPersistentes);
+
+        List<DtoReserva> reservasPersistentes = new ArrayList<>();
+        DtoReserva reservaEncontrada = new DtoReservaTestDataBuilder().build();
+        reservasPersistentes.add(reservaEncontrada);
+        Mockito.when(daoReserva.listar()).thenReturn(reservasPersistentes);
+
+        //Act
+        servicio.ejecutar(reserva);
+        //assert
+        Mockito.verify(repositorioReserva,Mockito.times(1)).crear(reserva);
+    }
+
+    @Test
     public void crearReservaMesaDisponibleNoReservada() {
         // arrange
         Reserva reserva = new ReservaTestDataBuilder().build();

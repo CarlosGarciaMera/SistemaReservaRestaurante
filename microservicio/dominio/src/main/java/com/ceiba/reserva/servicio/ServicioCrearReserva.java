@@ -54,7 +54,7 @@ public class ServicioCrearReserva {
     }
 
     private Optional<DtoMesa> getMesaParaReserva(Reserva reservaInformacion) {
-        Predicate<DtoMesa> filtrarPorCantidadComensales = mesa -> mesa.getCantidadMaximaComensales() > reservaInformacion.getCantidadComensales();
+        Predicate<DtoMesa> filtrarPorCantidadComensales = mesa -> mesa.getCantidadMaximaComensales() >= reservaInformacion.getCantidadComensales();
         List<DtoMesa> mesasDisponiblePorContidadComensales = daoMesa.listar().stream().filter(filtrarPorCantidadComensales).collect(Collectors.toList());
         List<DtoReserva> reservas = dao.listar();
         for (DtoMesa dtoMesa: mesasDisponiblePorContidadComensales) {
